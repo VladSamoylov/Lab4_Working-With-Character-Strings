@@ -1,5 +1,6 @@
 #include "iostream"
 #include "string.h"
+#include "string"
 
 using namespace std;
 
@@ -29,7 +30,7 @@ int CheckIntValue(int* i) {
  * @param symbol Символ введений з клавіатури
  * @return Повертає коректний символ до системи
 */
-char CheckCharValue(char symbol) {
+char CheckCharValue(char* symbol) {
 
 	cin.ignore(666, '\n');
 	while (true) {
@@ -37,12 +38,55 @@ char CheckCharValue(char symbol) {
 			cin.clear();
 			cin.ignore(666, '\n');
 			cout << "You enter wrong data! Please enter correct data: \n";
-			cin >> symbol;
+			cin >> *symbol;
 		}
 		else {
-			return symbol;
+			return *symbol;
 		}
 	}
+}
+
+/**
+ * @brief Перевіряє, щоб символ був літерою
+ * @param symbol Символ введений з клавіатури
+ * @return Повертає коректну літеру до системи
+*/
+char CheckThisLetter(char* symbol) {
+	int new_symbol;
+
+	while (true) {
+		if (int(*symbol) >= 65 && int(*symbol) <= 122) {
+			if (int(*symbol) >= 65 && int(*symbol) <= 90) {
+				new_symbol = int(*symbol) + 32;
+				*symbol = char(new_symbol);
+				return *symbol;
+			}
+			else {
+				return *symbol;
+			}			
+		}
+		else {
+			cout << "You enter wrong data! Please enter Only Letter: \n";
+			cin >> *symbol;
+			*symbol = CheckCharValue(&*symbol);
+		}
+	}	
+}
+
+/**
+ * @brief Визначає скільки разів літера зустрічається у рядку на позиції кратній 5
+ * @param symbol Літера введена користувачем з клавіатури
+*/
+void DetermineHowManyTimesGivenLetterMultiplesOf5(char* symbol) {
+	string str("determine how many times a given letter occurs in a given string in positions that are multiples of 5a.");
+	int count = 0; 
+
+	for (int i = 4; i < str.length(); i += 5) {
+		if (str[i] == *symbol) {
+			count++;
+		}
+	}
+	cout << "The target letter: " << *symbol << " meets - " << count << " times.";
 }
 
 /**
@@ -68,7 +112,7 @@ void IdentifyTheSymbolWithLargestCode() {
  * @return Повертає сама себе для продовження роботи користувача з додатком
 */
 int MenuOfSolution(int* q) {
-	int n;
+	char symbol;
 
 	switch (*q) {
 	case 1:
@@ -80,6 +124,10 @@ int MenuOfSolution(int* q) {
 	case 2:
 		cout << "\n__Task B__\n";
 		cout << "Enter amount of Teams: ";
+		cin >> symbol;
+		symbol = CheckCharValue(&symbol);
+		symbol = CheckThisLetter(&symbol);
+		DetermineHowManyTimesGivenLetterMultiplesOf5(&symbol);
 		break;
 	case 3:
 		cout << "\n__Task C__\n";
