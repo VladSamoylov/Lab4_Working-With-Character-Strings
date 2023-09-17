@@ -47,6 +47,17 @@ char CheckCharValue(char* symbol) {
 }
 
 /**
+ * @brief Перевіряє, що користувач ввів лише одне слово
+ * @param word Слово введене з клавіатури
+ * @return Повертає одне слово до системи
+*/
+string CheckOneWordString(string* word) {
+	
+	cin.ignore(666, '\n');
+	return *word;
+}
+
+/**
  * @brief Перевіряє, щоб символ був літерою
  * @param symbol Символ введений з клавіатури
  * @return Повертає коректну літеру до системи
@@ -107,19 +118,32 @@ void IdentifyTheSymbolWithLargestCode() {
 }
 
 /**
+ * @brief Вставляє задане слово користувачем в даний рядок після першого слова рядка
+ * @param word Слово введене користувачем з клавіатури
+*/
+void InsertWordInTheString(string* word) {
+	string str = "This string is the best string in the world";
+	int space_pos;
+
+	space_pos = str.find(" ");
+	str.insert(space_pos, *word);
+	cout << str << endl;
+}
+
+/**
  * @brief Інтерфейс який дає змогу користувачу працювати з додатком
  * @param q Вибір виконуваного завдання, яке задається користувачем з клавіатури
  * @return Повертає сама себе для продовження роботи користувача з додатком
 */
 int MenuOfSolution(int* q) {
 	char symbol;
+	string word;
 
 	switch (*q) {
 	case 1:
 		cout << "\n__Task A__\n";
 		cout << "Enter amount members of masive A: ";
 		IdentifyTheSymbolWithLargestCode();
-		//break;
 		return 0;
 	case 2:
 		cout << "\n__Task B__\n";
@@ -132,10 +156,11 @@ int MenuOfSolution(int* q) {
 	case 3:
 		cout << "\n__Task C__\n";
 		cout << "Enter number of colums: ";
-		break;
-	case 4:
-		cout << "\n__Task D__\n";
-		cout << "Enter number of colums: ";
+		cin >> word;
+		word = CheckOneWordString(&word);
+		//getline(cin, word);
+		word.insert(0, " ");
+		InsertWordInTheString(&word);
 		break;
 	default:
 		cout << "\n__You don't enter any task for execution__\n";
@@ -150,10 +175,9 @@ int main() {
 	cout << "\nCreated by Vladislav Samoilov / KNT - 223\n";
 
 	cout << "--------Select task:--------\n";
-	cout << "Task A) Fill masive A and created masive B - Enter 1\n";
-	cout << "Task B) Find the team goes second place - Enter 2\n";
-	cout << "Task C) Calculate Amount Of Abs Negative Elements - Enter 3\n";
-	cout << "Task D) Amount Sequence Members - Enter 4\n";
+	cout << "Task A) Identify The Symbol With Largest Code in the matrix - Enter 1\n";
+	cout << "Task B) Determine How Many Times Given Letter Multiples Of 5 - Enter 2\n";
+	cout << "Task C) Insert Word In The String - Enter 3\n";
 	cout << "------------------------------------------------------------\n";
 	cin >> q;
 	q = CheckIntValue(&q);
