@@ -97,6 +97,7 @@ void DetermineHowManyTimesGivenLetterMultiplesOf5(char* symbol) {
 			count++;
 		}
 	}
+	cout << "In the string: " << str << endl;
 	cout << "The target letter: " << *symbol << " meets - " << count << " times.";
 }
 
@@ -114,7 +115,14 @@ void IdentifyTheSymbolWithLargestCode() {
 			}
 		}
 	}
-	cout << "The symbol: " << largest_code << " is largest code: " << (int)largest_code;		
+	cout << "In the current string: ";
+	for (int i = 0; i < 10; i++) {
+		for (int j = 0; j < 10; j++) {
+			cout << set_string[i][j];
+		}
+		cout << " ";
+	}
+	cout << "\nThe symbol: " << largest_code << " is largest code: " << (int)largest_code << endl;
 }
 
 /**
@@ -142,12 +150,11 @@ int MenuOfSolution(int* q) {
 	switch (*q) {
 	case 1:
 		cout << "\n__Task A__\n";
-		cout << "Enter amount members of masive A: ";
 		IdentifyTheSymbolWithLargestCode();
 		return 0;
 	case 2:
 		cout << "\n__Task B__\n";
-		cout << "Enter amount of Teams: ";
+		cout << "Enter the letter: ";
 		cin >> symbol;
 		symbol = CheckCharValue(&symbol);
 		symbol = CheckThisLetter(&symbol);
@@ -155,7 +162,7 @@ int MenuOfSolution(int* q) {
 		break;
 	case 3:
 		cout << "\n__Task C__\n";
-		cout << "Enter number of colums: ";
+		cout << "Enter insert word: ";
 		cin >> word;
 		word = CheckOneWordString(&word);
 		//getline(cin, word);
